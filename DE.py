@@ -1,11 +1,14 @@
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
+import random
 import matplotlib.pyplot as plt
 import numpy as np
 import functions as fn
 from plot3D import plot3D
+
 #variables
 #NFC, MAX_NFC, NP, Xa, Xb, Xc, CR, F, D,
+
 #f1 :   High Conditioned Elliptic Function
 #f2 :   Bent cigar Function
 #f3 :   Discus Function
@@ -16,4 +19,48 @@ from plot3D import plot3D
 #f8 :   Rastrigin's Function
 #f9 :   Katsuura Function
 
+NP = 100
+Cr = 0.9
+F = 0.8
+# D = 10, 30, 50
+D = 10
+
+# Setup random population
+X = 200 * np.random.random_sample(D,) - 100
+Xa = 200 * np.random.random_sample(D,) - 100
+Xb = 200 * np.random.random_sample(D,) - 100
+Xc = 200 * np.random.random_sample(D,) - 100
+while np.array_equal(X,Xa):
+    Xa = 200 * np.random.random_sample(D,) - 100
+while np.array_equal(Xb, X) or np.array_equal(Xb, Xa):
+    Xb = 200 * np.random.random_sample(D,) - 100
+while np.array_equal(Xc,X) or np.array_equal(Xc,Xa)\
+        or np.array_equal(Xc,Xb):
+    Xc = 200 * np.random.random_sample(D,) - 100
+###################################################
+# Mutation
+V = (F * (Xb - Xa)) + Xc #noisy vector
+
+#Testing
+print(X)
+print(Xa)
+print(Xb)
+print(Xc)
+#print(V)
+###################################################
+# Crossover
+U = np.empty(D,)
+for i in range(0,D):
+    x=np.random.random()
+    print(x)
+    if (x < Cr):
+        U[i]=V[i]
+    else:
+        U[i]=X[i]
+#test crossover
+print(X)
+print(V)
+print(U)
+####################################################
+# Selection
 
