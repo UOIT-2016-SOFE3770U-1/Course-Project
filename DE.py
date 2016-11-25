@@ -46,13 +46,6 @@ for i in range(0,NP):
     # Mutation
     #noisy vector
     V = (F * (Xb - Xa)) + Xc
-
-    #Testing
-    '''print(X)
-    print(Xa)
-    print(Xb)
-    print(Xc)
-    #print(V)'''
     ###################################################
     # Crossover
     U = np.empty(D,)
@@ -62,10 +55,6 @@ for i in range(0,NP):
             U[i]=V[i]
         else:
             U[i]=X[i]
-    #test crossover
-    '''print(X)
-    print(V)
-    print(U)'''
     ####################################################
     # Selection
     Uv = fn.f1(U)
@@ -73,5 +62,5 @@ for i in range(0,NP):
         X = U
         Xv = Uv
     print(Xv)
-print(X)
-print(Xv)
+print("Best Variable Vector:\n", X)
+print("Best Solution: ", Xv)
