@@ -24,43 +24,54 @@ Cr = 0.9
 F = 0.8
 # D = 10, 30, 50
 D = 10
-
+#fn = [fn.f1,fn.f2,fn.f3,fn.f4,fn.f5,fn.f6,fn.f7,fn.f8]
 # Setup random population
+# Target Vector
 X = 200 * np.random.random_sample(D,) - 100
-Xa = 200 * np.random.random_sample(D,) - 100
-Xb = 200 * np.random.random_sample(D,) - 100
-Xc = 200 * np.random.random_sample(D,) - 100
-while np.array_equal(X,Xa):
+Xv = fn.f1(X)
+for i in range(0,NP):
+    # Two Random vectors
     Xa = 200 * np.random.random_sample(D,) - 100
-while np.array_equal(Xb, X) or np.array_equal(Xb, Xa):
     Xb = 200 * np.random.random_sample(D,) - 100
-while np.array_equal(Xc,X) or np.array_equal(Xc,Xa)\
-        or np.array_equal(Xc,Xb):
+    # Third Random vector for mutation
     Xc = 200 * np.random.random_sample(D,) - 100
-###################################################
-# Mutation
-V = (F * (Xb - Xa)) + Xc #noisy vector
+    while np.array_equal(X,Xa):
+        Xa = 200 * np.random.random_sample(D,) - 100
+    while np.array_equal(Xb, X) or np.array_equal(Xb, Xa):
+        Xb = 200 * np.random.random_sample(D,) - 100
+    while np.array_equal(Xc,X) or np.array_equal(Xc,Xa) \
+            or np.array_equal(Xc,Xb):
+        Xc = 200 * np.random.random_sample(D,) - 100
+    ###################################################
+    # Mutation
+    #noisy vector
+    V = (F * (Xb - Xa)) + Xc
 
-#Testing
+    #Testing
+    '''print(X)
+    print(Xa)
+    print(Xb)
+    print(Xc)
+    #print(V)'''
+    ###################################################
+    # Crossover
+    U = np.empty(D,)
+    for i in range(0,D):
+        x=np.random.random()
+        if (x < Cr):
+            U[i]=V[i]
+        else:
+            U[i]=X[i]
+    #test crossover
+    '''print(X)
+    print(V)
+    print(U)'''
+    ####################################################
+    # Selection
+    Uv = fn.f1(U)
+    if (Uv<Xv):
+        X = U
+        Xv = Uv
+    print(Xv)
 print(X)
-print(Xa)
-print(Xb)
-print(Xc)
-#print(V)
-###################################################
-# Crossover
-U = np.empty(D,)
-for i in range(0,D):
-    x=np.random.random()
-    print(x)
-    if (x < Cr):
-        U[i]=V[i]
-    else:
-        U[i]=X[i]
-#test crossover
-print(X)
-print(V)
-print(U)
-####################################################
-# Selection
-
+print(Xv)
