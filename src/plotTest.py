@@ -16,10 +16,12 @@ from plot3D import plot3D
 #f9 :   Katsuura Function
 
 
-
 plot3D(fn.f1,-5,5,-5,5,"1. High Conditioned Elliptic Function")
-plot3D(fn.f2,-5,5,-5,5, "2. Bent cigar Function")
-plot3D(fn.f3,-6,6,-6,6, "3. Discus Function")
-plot3D(fn.f4,-5,5,-5,5, "4. Rosenbrock's Function")
-plot3D(fn.f5,-5,5,-5,5,"Ackley's Function")
-plot3D(fn.f8,-5,5,-5,5,"Rastrigin's Function")
+plot3D(fn.f2,-5,5,-5,5,"2. Bent cigar Function")
+plot3D(fn.f3,-6,6,-6,6,"3. Discus Function")
+plot3D(fn.f4,-5,5,-5,5,"4. Rosenbrock's Function")
+plot3D(fn.f5,-5,5,-5,5,"5. Ackley's Function")
+plot3D(fn.f6,-5,5,-5,5,"6. Weierstrass Function")
+plot3D(fn.f7,-5,5,-5,5,"7. Griewank's Function")
+plot3D(fn.f8,-5,5,-5,5,"8. Rastrigin's Function")
+plot3D(fn.f9,0,0.01,0,0.1,"9. Katsuura Function")
