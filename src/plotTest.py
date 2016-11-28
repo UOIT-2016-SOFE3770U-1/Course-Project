@@ -17,8 +17,9 @@ from plot3D import plot3D
 
 
 
-plot3D(fn.f1)
-plot3D(fn.f2)
-plot3D(fn.f4)
-plot3D(fn.f5)
-plot3D(fn.f8)
+plot3D(fn.f1,-5,5,-5,5,"1. High Conditioned Elliptic Function")
+plot3D(fn.f2,-5,5,-5,5, "2. Bent cigar Function")
+plot3D(fn.f3,-6,6,-6,6, "3. Discus Function")
+plot3D(fn.f4,-5,5,-5,5, "4. Rosenbrock's Function")
+plot3D(fn.f5,-5,5,-5,5,"Ackley's Function")
+plot3D(fn.f8,-5,5,-5,5,"Rastrigin's Function")
