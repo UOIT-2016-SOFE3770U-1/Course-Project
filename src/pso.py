@@ -30,18 +30,20 @@ C2 = 2.05
 # D = 10, 30, 50
 D =10
 Max_NFC = 5000*D
-NFC = 0
+
 function = fn.f1
 # Range of variables [-100,100]
 
-# build the whole swarm
-# swarm size = NP
-swarm = Swarm(Np,D, function, -100, 100, C1, C2, 0.9, 0.4)
+def pso(function):
+    NFC = 0
+    # build the whole swarm
+    # swarm size = NP
+    swarm = Swarm(Np,D, function, -100, 100, C1, C2, 0.9, 0.4)
 
-while NFC < Max_NFC:
-    for Xi in range(0, Np):
-        swarm.update_particle(Xi)
-    NFC = swarm.get_NFC()
+    while NFC < Max_NFC:
+        for Xi in range(0, Np):
+            swarm.update_particle(Xi)
+        NFC = swarm.get_NFC()
 
-print("best position is: ", swarm.get_bestPosition(), "\n")
-print("best funcion value = ", swarm.get_bestFunctionValue())
+    print("best position is: ", swarm.get_bestPosition(), "\n")
+    print("best funcion value = ", swarm.get_bestFunctionValue())
