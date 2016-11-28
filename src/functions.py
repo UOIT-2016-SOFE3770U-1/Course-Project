@@ -99,7 +99,7 @@ def f9(x):
     sum, product = 0,1
     for i in range(1,len(x)+1):
         for j in range(1, 32+1):
-            sum += np.abs(2**j * x[i-1] - np.floor(2**j * x[i-1]))/2**j
-        product *= 1 + i * sum
-    result = (10/(len(x)**2)) * product**(10/(len(x)**12)) - 10/(len(x)**2)
+            sum += (np.absolute((2**j * x[i-1]) - (np.round(2**j * x[i-1])))/2**j)
+        product *= np.power((1 + i * sum),(10/(len(x)**1.2)))
+    result = (10/(len(x)**2)) * product - 10/(len(x)**2)
     return  result
