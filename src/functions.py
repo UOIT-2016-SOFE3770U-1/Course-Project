@@ -28,7 +28,16 @@ def f2(x):
     return sum
 
 #f3 :   Discus Function
+def f3(x):
+    sum1,sum2 = 0.0 , 0.0
 
+    sum1 = x[1] ** 2
+    sum1 *= 10**6
+    for i in range (2, len(x)+1):
+        sum2 += x[i - 1] ** 2
+
+    result = sum1 + sum2
+    return result
 
 #f4 :   Rosenbrock's Function
 def f4(x):
