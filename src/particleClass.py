@@ -1,10 +1,15 @@
 import random
 import numpy as np
-
+from functionClass import function
+from pathlib import Path
 
 class Particle:
     """particle part of swarm for PSO algorithm"""
+    __functionNumber = None
+    __func = None
     __function = None
+    __NFC = None
+    __run = None
     __velocity = None
     __position = None
     __previousVelocity = None
@@ -14,14 +19,15 @@ class Particle:
     __bestFunctionValue = None
 
     def __init__(self, dimension, function, VariableLowerBound, VariableUpperBound):
-        self.__function = function
+        self.__func = function
         self.__position = (VariableUpperBound - VariableLowerBound) * np.random.random_sample(dimension,) - VariableUpperBound
         self.__velocity = (VariableUpperBound - VariableLowerBound)/20 * np.random.random_sample(dimension,) - (VariableUpperBound/10)
         self.__bestPosition = self.__position
         self.__previousPosition = self.__position
         self.__previousVelocity = self.__velocity
-        self.__functionValue = self.__function(self.__position)
+        self.__functionValue = self.__func.fn(self.__position)
         self.__bestFunctionValue = self.__functionValue
+
 
 
     def get_velocity(self):
@@ -50,11 +56,12 @@ class Particle:
 
     def update_position(self):
         self.__position = self.__previousPosition + self.__velocity
-        self.__functionValue = self.__function(self.__position)
-        print("function value " , self.__functionValue, "\n")
+        self.__functionValue = self.__func.fn(self.__position)
+        #print("function value " , self.__functionValue, "\n")
         if (self.__functionValue < self.__bestFunctionValue):
             # update best function value
             self.__bestFunctionValue = self.__functionValue
             # update particle best position
             self.__bestPosition = self.__position
+
         return self.__bestPosition

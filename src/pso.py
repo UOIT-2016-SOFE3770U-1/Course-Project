@@ -3,9 +3,11 @@ from matplotlib import cm
 import random
 import matplotlib.pyplot as plt
 import numpy as np
-import functions as fn
+from functionClass import function
 from swarmClass import Swarm
+from pathlib import Path
 from plot3D import plot3D
+
 
 #f1 :   High Conditioned Elliptic Function
 #f2 :   Bent cigar Function
@@ -31,19 +33,34 @@ C2 = 2.05
 D =10
 Max_NFC = 5000*D
 
-function = fn.f1
+
+
 # Range of variables [-100,100]
 
-def pso(function):
+def pso(functionNumber,run,D):
+    filePath = "../output/" + str(D) + "_" + str(functionNumber) + "_" + str(run) + "_PSO.csv"
+    if not Path(filePath).is_file():
+        file = open(filePath, 'w')
+        file.close()
+    fnc = function(filePath,functionNumber,run)
     NFC = 0
     # build the whole swarm
     # swarm size = NP
-    swarm = Swarm(Np,D, function, -100, 100, C1, C2, 0.9, 0.4)
+    swarm = Swarm(Np,D, fnc, -100, 100, C1, C2, 0.9, 0.4)
 
     while NFC < Max_NFC:
         for Xi in range(0, Np):
             swarm.update_particle(Xi)
-        NFC = swarm.get_NFC()
+            bestValue = swarm.get_bestFunctionValue()
+            bestPosition = swarm.get_bestPosition()
+            bestNFC = fnc.get_NFC()
+            file = open(filePath, 'a')
+            file.write(str(bestNFC) + ',' + str(bestValue) + ',')
+            for i in bestPosition:
+                file.write(str(i) + ',')
+            file.write("\n")
+            file.close()
+        NFC = fnc.get_NFC()
 
     print("best position is: ", swarm.get_bestPosition(), "\n")
     print("best funcion value = ", swarm.get_bestFunctionValue())

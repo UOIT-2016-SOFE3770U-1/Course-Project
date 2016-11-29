@@ -3,7 +3,8 @@ from matplotlib import cm
 import random
 import matplotlib.pyplot as plt
 import numpy as np
-import functions as fn
+from functionClass import function
+from pathlib import Path
 from plot3D import plot3D
 
 #variables
@@ -24,13 +25,25 @@ Cr = 0.9
 F = 0.8
 
 # D = 10, 30, 50
-D = 10
-#fn = [fn.f1,fn.f2,fn.f3,fn.f4,fn.f5,fn.f6,fn.f7,fn.f8]
+#D = 10
 # Setup random population
 # Target Vector
-def de(function):
+def de(functionNumber,run,D):
+    filePath = "../output/" + str(D) + "_" + str(functionNumber) + "_DE.csv"
+    if not Path(filePath).is_file():
+        file = open(filePath, 'w')
+        file.close()
+    fnc = function(filePath,functionNumber,run )
     X = 200 * np.random.random_sample(D,) - 100
-    Xv = function(X)
+    Xv = fnc.fn(X)
+    bestNFC = 1
+
+    file = open(filePath, 'a')
+    file.write(str(bestNFC) + ',' + str(Xv) + ',')
+    for i in X:
+        file.write(str(i) + ',')
+    file.write("\n")
+    file.close()
     for i in range(0,NP):
         # Two Random vectors
         Xa = 200 * np.random.random_sample(D,) - 100
@@ -59,10 +72,18 @@ def de(function):
                 U[i]=X[i]
         ####################################################
         # Selection
-        Uv = fn.f1(U)
+        Uv = fnc.fn(U)
         if (Uv<Xv):
             X = U
             Xv = Uv
-        print(Xv)
+            bestNFC = fnc.get_NFC()
+        file = open(filePath, 'a')
+        file.write(str(bestNFC) + ',' + str(Xv) + ',')
+        for i in X:
+            file.write(str(i) + ',')
+        file.write("\n")
+        file.close()
+        #print(Xv)
+
     print("Best Variable Vector:\n", X)
     print("Best Solution: ", Xv)
