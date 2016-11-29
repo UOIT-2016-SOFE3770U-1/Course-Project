@@ -1,11 +1,12 @@
 import numpy as np
 from particleClass import Particle as Prt
+from functionClass import function
 
 
 class Swarm:
     """swarm class for PSO algorithm"""
     __dimension = None
-    __function = None
+    __functionNumber = None
     __variableLowerBound = None
     __variableUpperBound = None
     __inertiaWeight = None
@@ -36,9 +37,11 @@ class Swarm:
         self.__particles = np.empty(Np, dtype=Prt)
         i = 0
         # generate unique particles in the swarm
+        bestNFC = 1
         while i < Np:
             self.__particles[i] = self.create_particle()
-            print("created particel ", i)
+            #print("created particel ", i)
+            j=0
             for j in range (0, i):
                 if np.array_equal(self.__particles[i],self.__particles[j]):
                     i = i - 1
@@ -46,12 +49,22 @@ class Swarm:
             if self.__bestFunctionValue == None:
                 self.__bestFunctionValue = self.__particles[i].get_bestFunctionValue()
                 self.__bestPosition = self.__particles[i].get_bestPosition()
+                bestNFC = self.__function.get_NFC()
             if self.__bestFunctionValue > self.__particles[i].get_bestFunctionValue():
                 self.__bestFunctionValue = self.__particles[i].get_bestFunctionValue()
                 self.__bestPosition = self.__particles[i].get_bestPosition()
+                bestNFC = self.__function.get_NFC()
+            #append best position and value to file
+
+            filePath = self.__function.get_filePath()
+            file = open(filePath, 'a')
+            file.write(str(bestNFC) + ',' + str(self.__bestFunctionValue) + ',')
+            for p in self.__bestPosition:
+                file.write(str(p) + ',')
+            file.write("\n")
+            file.close()
             i = i + 1
-    def get_NFC(self):
-        return self.__NFC
+
 
     def get_bestPosition(self):
         return self.__bestPosition
@@ -60,10 +73,10 @@ class Swarm:
         return self.__bestFunctionValue
 
     def create_particle(self):
-        particle = Prt(self.__dimension, self.__function,
+        particle = Prt(self.__dimension,
+                       self.__function,
                        self.__variableLowerBound,
                        self.__variableUpperBound)
-        self.__NFC = self.__NFC + 1
         return particle
 
     def update_particle(self, index):
@@ -75,4 +88,11 @@ class Swarm:
         if self.__bestFunctionValue > self.__particles[index].get_bestFunctionValue():
             self.__bestFunctionValue = self.__particles[index].get_bestFunctionValue()
             self.__bestPosition = self.__particles[index].get_bestPosition()
-        self.__NFC = self.__NFC + 1
+            bestNFC = self.__function.get_NFC()
+            filePath = self.__function.get_filePath()
+            file = open(filePath, 'a')
+            file.write(str(bestNFC) + ',' + str(self.__bestFunctionValue) + ',')
+            for i in self.__bestPosition:
+                file.write(str(i) + ',')
+            file.write("\n")
+            file.close()
