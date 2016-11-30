@@ -1,4 +1,5 @@
 import numpy as np
+from numba import jit
 import os
 from pathlib import Path
 
@@ -36,6 +37,7 @@ class function:
 
 
     #f1 :   High Conditioned Elliptic Function
+    #@jit(nopython=True)
     def f1(self,x):
         sum = 0.0
         for i in range(1, len(x) + 1):
@@ -44,6 +46,7 @@ class function:
 
 
     #f2 :   Bent cigar Function
+    #@jit(nopython=True)
     def f2(self,x):
         sum = 0.0
         for i in range(2, len(x) + 1):
@@ -53,6 +56,7 @@ class function:
         return sum
 
     #f3 :   Discus Function
+    #@jit(nopython=True)
     def f3(self,x):
         sum1,sum2 = 0.0 , 0.0
 
@@ -65,6 +69,7 @@ class function:
         return result
 
     #f4 :   Rosenbrock's Function
+    #@jit(nopython=True)
     def f4(self,x):
         sum = 0.0
         for i in range(1, len(x)+1-1):
@@ -73,6 +78,7 @@ class function:
 
 
     #f5 :   Ackley's Function
+    #@jit(nopython=True)
     def f5(self,x):
         sum1, sum2 = 0.0, 0.0
         for i in range(1, len(x)+1):
@@ -88,6 +94,7 @@ class function:
 
 
     #f6 :   Weierstrass Function
+    #@jit(nopython=True)
     def f6(self,x):
         sum1,sum2,sum3 =0,0,0
         a=0.5
@@ -103,6 +110,7 @@ class function:
         return  result
 
     #f7 :   Griewank's Function
+    #@jit(nopython=True)
     def f7(self,x):
         sum,product = 0,1
         for i in range(1,len(x)+1):
@@ -113,6 +121,7 @@ class function:
         return result
 
     #f8 :   Rastrigin's Function
+    #@jit(nopython=True)
     def f8(self,x):
         sum = 0.0
         for i in range(1, len(x)+1):
@@ -120,6 +129,7 @@ class function:
         return sum
 
     #f9 :   Katsuura Function
+    #@jit(nopython=True)
     def f9(self,x):
         sum, product = 0,1
         for i in range(1,len(x)+1):

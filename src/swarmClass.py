@@ -37,7 +37,6 @@ class Swarm:
         self.__particles = np.empty(Np, dtype=Prt)
         i = 0
         # generate unique particles in the swarm
-        bestNFC = 1
         while i < Np:
             self.__particles[i] = self.create_particle()
             #print("created particel ", i)
@@ -53,16 +52,6 @@ class Swarm:
             if self.__bestFunctionValue > self.__particles[i].get_bestFunctionValue():
                 self.__bestFunctionValue = self.__particles[i].get_bestFunctionValue()
                 self.__bestPosition = self.__particles[i].get_bestPosition()
-                bestNFC = self.__function.get_NFC()
-            #append best position and value to file
-
-            filePath = self.__function.get_filePath()
-            file = open(filePath, 'a')
-            file.write(str(bestNFC) + ',' + str(self.__bestFunctionValue) + ',')
-            for p in self.__bestPosition:
-                file.write(str(p) + ',')
-            file.write("\n")
-            file.close()
             i = i + 1
 
 
@@ -88,11 +77,3 @@ class Swarm:
         if self.__bestFunctionValue > self.__particles[index].get_bestFunctionValue():
             self.__bestFunctionValue = self.__particles[index].get_bestFunctionValue()
             self.__bestPosition = self.__particles[index].get_bestPosition()
-            bestNFC = self.__function.get_NFC()
-            filePath = self.__function.get_filePath()
-            file = open(filePath, 'a')
-            file.write(str(bestNFC) + ',' + str(self.__bestFunctionValue) + ',')
-            for i in self.__bestPosition:
-                file.write(str(i) + ',')
-            file.write("\n")
-            file.close()
