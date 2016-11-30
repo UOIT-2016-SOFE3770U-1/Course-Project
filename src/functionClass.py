@@ -15,31 +15,16 @@ from pathlib import Path
 class function:
     """"""
     __NFC = None
-    __filePath = None
-    __file = None
     __functionNumber = None
-    __run = 1
-    def __init__(self, filePath=None,functionNumber=None, run=1):
+    def __init__(self,functionNumber=None):
         self.__NFC = 0
-        self.__filePath = filePath
         self.__functionNumber = functionNumber
-        self.__run = run
-        if self.__filePath is not None and Path(self.__filePath).is_file():
-            self.__file = open(self.__filePath, 'a')
 
     def fn(self,x):
         """function call with one variable"""
         function_to_call = getattr(self, "f"+str(self.__functionNumber))
         result = function_to_call(x)
         self.__NFC += 1
-        if self.__filePath  is not None and self.__file is not None:
-            self.__file.write(str(self.__run) + ',' + str(self.__NFC) + ',' +
-                              str(result) + ',')
-            for i in x:
-                self.__file.write(str(i)+',')
-            self.__file.seek(0, 2)
-            self.__file.truncate()
-            #self.__file.write('\n')
         return result
 
     def get_NFC(self):
@@ -48,8 +33,6 @@ class function:
     def get_functionNumber(self):
         return self.__functionNumber
 
-    def get_filePath(self):
-        return  self.__filePath
 
 
     #f1 :   High Conditioned Elliptic Function

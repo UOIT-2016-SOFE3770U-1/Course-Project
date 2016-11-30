@@ -1,9 +1,23 @@
 from pathlib import Path
-from functionClass import function
-import DE
+from functionClass import function as func
+from DeClass import DE
+import numpy as np
 import pso
 
-fnc = function()
+#fnc = function()
+Np = 100
+Cr = 0.9
+F = 0.8
+
+def save_to_file(dimention, fuctionNumber, Algorithm, run, NFC, best):
+    filePath = "../output/" + str(dimention) + "_" + str(fuctionNumber) + "_" + str(Algorithm) + ".csv"
+    if not Path(filePath).is_file():
+        file = open(filePath, 'w')
+    else:
+        file = open(filePath, 'a')
+    file.write(str(run) + ',' + str(NFC) + ',' + str(best) + '\n')
+    file.close()
+
 
 algorithm_choice = None
 functionList=[
@@ -39,6 +53,10 @@ else:
           "Please enter a number form 1 to 9\n")
     print("You choose:\n", functionList[int(function_choice)-1])
 
+    # Create function object from fuction class
+    # Create fucntion object here to pass it to algorithm and keep track of NFC
+    function = func(int(function_choice))
+
     D = input("Enter space separated integers for dimensions")
     D = D.split()
 
@@ -47,10 +65,31 @@ else:
     #functionToCall = getattr(fnc,"f"+function_choice)
     #functionToCall = fnc.fn
     if algorithm_choice == "de":
+
         for d in D:
+            print(str(d))
             for i in range(runFrom, runTo+1):
-                DE.de(function_choice,i,int(d))
+                # Create function object from fuction class
+                # Create fucntion object here to pass it to algorithm and keep track of NFC
+                function = func(int(function_choice))
+                # Create de object for De class
+                de = DE(Np,d,Cr,F,function)
+
+                best = de.get_best()
+                NFC = function.get_NFC()
+                save_to_file(d,function_choice,'DE', i, NFC,best)
+                print("run: " + str(i))
+                #print("Best = " + str(best) + "\n")
+                #print("NFC = " + str(NFC))
+
+                while NFC < 5000*int(d):
+                    best = de.generate_test()
+                    NFC = function.get_NFC()
+                    #print("Best = " + str(best) + "\n")
+                    #print("NFC = " + str(NFC))
+                    save_to_file(d, function_choice, 'DE', i, NFC, best)
     elif algorithm_choice == "pso":
         for d in D:
             for i in range(runFrom, runTo+1):
                 pso.pso(function_choice,i,int(d))
+
