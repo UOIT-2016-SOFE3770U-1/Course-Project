@@ -2,7 +2,7 @@ Attribute VB_Name = "Module1"
 Sub SplitInto500CellsPerColumn()
   ' modified form http://www.mrexcel.com/forum/excel-questions/678946-split-one-long-column-into-multiple-smaller-columns.html
   Dim X As Long, LastRow As Long, vArrIn As Variant, vArrOut As Variant
-  Dim ColumnCount As Integer, D As Integer
+  Dim ColumnCount As Long, D As Long
     
   WorkbookName = ActiveWorkbook.Name
     D = CInt(Left(WorkbookName, 2))
