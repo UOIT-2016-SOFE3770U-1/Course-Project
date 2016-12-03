@@ -6,8 +6,7 @@ Np = 100
 #setup filename
 
 
-for D in [10 , 30, #50
-           ]:
+for D in [10 , 30, 50]:
     file_save = "../output/" + str(D) + "_" + "mean_worst_best_SD" + ".csv"
     file = open(file_save, 'w')
     file.write("DE_mean,PSO_mean,DE_worst,PSO_worst,DE_best,PSO_best,DE_SD,PSO_SD\n")

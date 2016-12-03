@@ -1,28 +1,12 @@
-from mpl_toolkits.mplot3d import Axes3D
-from matplotlib import cm
-import random
-import matplotlib.pyplot as plt
 import numpy as np
-from functionClass import function as func
-from pathlib import Path
-from plot3D import plot3D
 
 #variables
 #NFC, MAX_NFC, NP, Xa, Xb, Xc, CR, F, D,
 
-#f1 :   High Conditioned Elliptic Function
-#f2 :   Bent cigar Function
-#f3 :   Discus Function
-#f4 :   Rosenbrock's Function
-#f5 :   Ackley's Function
-#f6 :   Weierstrass Function
-#f7 :   Griewank's Function
-#f8 :   Rastrigin's Function
-#f9 :   Katsuura Function
 
 class DE:
 
-    __Np = 100
+    __Np = None
     __Cr = 0.9
     __F = 0.8
     __D = None  # Dimension
@@ -30,12 +14,9 @@ class DE:
     __Pv = None
     __function = None
     __best = None
-    #__NFC = None
 
-    # D = 10, 30, 50
-    #D = 10
+
     # Setup random population
-    # Target Vector
     def __init__(self,Np, D, Cr, F, function):
         self.__Np = int(Np)
         self.__D = D
@@ -65,6 +46,7 @@ class DE:
         # U
 
         for i in range(0, self.__Np):
+            # Target Vector
             X = self.__P[i]
             Xv = self.__Pv[i]
             # select Xa, Xb, Xc
