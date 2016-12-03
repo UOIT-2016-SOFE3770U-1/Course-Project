@@ -31,6 +31,7 @@ def plot3D(fn, xLowerBound, xUpperbound, yLowerBound, yUpperbound,name):
                     cstride=3,
                     alpha=0.3,
                     cmap='hot')
+    plt.title(name)
     #plt.savefig("../img/2d3D/" + name + ".png", bbox_inches='tight')
     #plt.close()
     plt.show()
