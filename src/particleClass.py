@@ -1,7 +1,5 @@
 import random
 import numpy as np
-from functionClass import function
-from pathlib import Path
 
 class Particle:
     """particle part of swarm for PSO algorithm"""
@@ -28,8 +26,6 @@ class Particle:
         self.__functionValue = self.__func.fn(self.__position)
         self.__bestFunctionValue = self.__functionValue
 
-
-
     def get_velocity(self):
         return self.__velocity
 
@@ -55,6 +51,7 @@ class Particle:
                           (p2 * C2) * (swarmBestPosition - self.__previousPosition)
 
     def update_position(self):
+        """return new position"""
         self.__position = self.__previousPosition + self.__velocity
         self.__functionValue = self.__func.fn(self.__position)
         #print("function value " , self.__functionValue, "\n")
@@ -64,4 +61,4 @@ class Particle:
             # update particle best position
             self.__bestPosition = self.__position
 
-        return self.__bestPosition
+        return self.__position

@@ -38,7 +38,7 @@ class DE:
     # Target Vector
     def __init__(self,Np, D, Cr, F, function):
         self.__Np = int(Np)
-        self.__D = int(D)
+        self.__D = D
         self.__Cr = Cr
         self.__F = F
         self.__function = function

@@ -1,7 +1,5 @@
 import numpy as np
 from numba import jit
-import os
-from pathlib import Path
 
 #f1 :   High Conditioned Elliptic Function
 #f2 :   Bent cigar Function
@@ -17,6 +15,7 @@ class function:
     """"""
     __NFC = None
     __functionNumber = None
+
     def __init__(self,functionNumber=None):
         self.__NFC = 0
         self.__functionNumber = functionNumber
@@ -34,7 +33,18 @@ class function:
     def get_functionNumber(self):
         return self.__functionNumber
 
-
+    @staticmethod
+    def get_functionsList():
+        return [
+                        "1.   High Conditioned Elliptic Function",
+                        "2.   Bent cigar Function",
+                        "3.   Discus Function",
+                        "4.   Rosenbrock's Function",
+                        "5.   Ackley's Function",
+                        "6.   Weierstrass Function",
+                        "7.   Griewank's Function",
+                        "8.   Rastrigin's Function",
+                        "9.   Katsuura Function"]
 
     #f1 :   High Conditioned Elliptic Function
     #@jit(nopython=True)

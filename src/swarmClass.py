@@ -1,12 +1,11 @@
 import numpy as np
 from particleClass import Particle as Prt
-from functionClass import function
 
 
-class Swarm:
+class swarm:
     """swarm class for PSO algorithm"""
     __dimension = None
-    __functionNumber = None
+    __function = None
     __variableLowerBound = None
     __variableUpperBound = None
     __inertiaWeight = None
@@ -73,7 +72,14 @@ class Swarm:
         self.__particles[index].update_velocity(self.__inertiaWeight[index], self.__C1,self.__C2,self.__bestPosition)
         # Move to new position and
         self.__particles[index].update_position()
-        # check if new postion is better
+        # check and update if new particle's postion is better than the global' position
         if self.__bestFunctionValue > self.__particles[index].get_bestFunctionValue():
             self.__bestFunctionValue = self.__particles[index].get_bestFunctionValue()
             self.__bestPosition = self.__particles[index].get_bestPosition()
+
+    def run(self):
+        for i in range(0, self.__Np):
+            # Update velocities and move to new poition
+            self.update_particle(i)
+            self.__bestFunctionValue = self.get_bestFunctionValue()
+            self.__bestPosition = self.get_bestPosition()
